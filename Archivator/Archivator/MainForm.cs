@@ -53,6 +53,7 @@ namespace Archivator
             }
             
             // Všechno se povedlo, tak naplň seznam souborů
+            listFiles.Items.Clear();
             foreach (string Name in MyArchiver.Names)
             {
                 listFiles.Items.Add(Name);
@@ -66,7 +67,10 @@ namespace Archivator
         {
             // Ulož pouze když je alespoň něco otevřeno
             if (MyArchiver.IsOpened)
-              MyArchiver.SaveArchieve();
+            {
+                MyArchiver.SaveArchieve();
+                MessageBox.Show("Uloženo!");
+            }
         }
 
         // Událost po kliknutí na tlačítko Ukončit
@@ -104,6 +108,8 @@ namespace Archivator
                 {
                     // Když uživatel klikne na Ano, odstraň soubor
                     MyArchiver.RemoveFile(listFiles.SelectedItem.ToString());
+                    
+                    listFiles.Items.RemoveAt(listFiles.SelectedIndex);
                 }
             
             }
@@ -122,6 +128,8 @@ namespace Archivator
                 saveDialog.ShowDialog(); // Počkej až uživatel vybere nějakou cestu k uložení extrahovaného souboru
                 
                 MyArchiver.ExtractFile(listFiles.SelectedItem.ToString(), saveDialog.FileName); // Extrahuj soubor
+                
+                MessageBox.Show("Extrakce dokončena");
             }
         }
 

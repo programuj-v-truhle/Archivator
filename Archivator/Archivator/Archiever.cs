@@ -18,7 +18,7 @@ namespace Archivator
     /// <summary>
     /// Hlavní třída
     /// </summary>
-    class Archiever : IDisposable
+    public sealed class Archiever : IDisposable
     {
         
         /// <summary>
@@ -379,7 +379,7 @@ namespace Archivator
         }
 
         /// <summary>
-        /// Odvozená metoda Dispose od typu IDisposable. Zavře archív. Odvození od IDisposable umožní použít třídu i v bloku using()
+        /// Odvozená metoda Dispose od typu IDisposable. Zavře archív. Odvození od IDisposable umožní použít naši třídu i v bloku using()
         /// </summary>
         public void Dispose()
         {
@@ -397,6 +397,10 @@ namespace Archivator
         /// </summary>
         public void Close()
         {
+            FilesIn.Clear();
+            FilesToAdd.Clear();
+            FilesToRemove.Clear();
+
             Dispose();
         }
 
