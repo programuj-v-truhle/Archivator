@@ -91,7 +91,15 @@ namespace Archivator
         {
             // Otevři dialog a čekej až uživatel vybere soubor, pak jej přihoď do archívu
             openDialog.ShowDialog();
-            MyArchiver.AddFile(openDialog.FileName);
+
+            try
+            {
+                MyArchiver.AddFile(openDialog.FileName);
+            }
+            catch (ArchieverException E)
+            {
+                MessageBox.Show(String.Format("Nastala chyba: {0}",E.Message));
+            }
             listFiles.Items.Add(Path.GetFileName(openDialog.FileName));
 
             // Pozn.: Není potřeba kontrolovat zda je otevřen nějaký archív, protože toto tlačítko se zpřístupní až když nějaký archív otevřen je
